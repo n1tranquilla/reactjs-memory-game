@@ -16,7 +16,7 @@ class Block extends React.Component {
     peek(){
         this.props.pushSelection(this.props.value);
         this.show();
-        if (!this.props.isDiscovered) setTimeout(()=>this.hide(),1000);
+        setTimeout(()=>this.hide(),1000);
     }
     render() {
         return (
@@ -34,7 +34,7 @@ class Board extends React.Component {
         return  <Block  value={squares[i]}
                         isDiscovered={isDiscovered}
                         pushSelection={this.props.pushSelection}
-                />;
+        />;
     }
     render() {
         return (
@@ -65,6 +65,13 @@ class Board extends React.Component {
                 </div>
             </div>
         );
+    }
+}
+
+function shuffle(a) {
+    for (let i = a.length; i; i--) {
+        let j = Math.floor(Math.random() * i);
+        [a[i - 1], a[j]] = [a[j], a[i - 1]];
     }
 }
 
@@ -117,21 +124,17 @@ class Game extends React.Component {
             status='Current Player: '+currentPlayer;
         }
         return (
-            <div>
-                <h1>Memory Game:</h1>
-                <h2>Guess any two squares to find a pair. The player with the most pairs wins!</h2>
-                <div className="game">
-                    <div>
-                        <Board blocks={this.state.blocks}
-                               discoveredNumbers={this.state.discoveredNumbers}
-                               pushSelection={this.pushSelection.bind(this)}
-                        />
-                    </div>
-                    <div className="game-info">
-                        <div>{status}</div>
-                        <div>Player One: {this.state.playerOneScore}</div>
-                        <div>Player Two: {this.state.playerTwoScore}</div>
-                    </div>
+            <div className="game">
+                <div>
+                    <Board blocks={this.state.blocks}
+                           discoveredNumbers={this.state.discoveredNumbers}
+                           pushSelection={this.pushSelection.bind(this)}
+                    />
+                </div>
+                <div className="game-info">
+                    <div>{status}</div>
+                    <div>Player One: {this.state.playerOneScore}</div>
+                    <div>Player Two: {this.state.playerTwoScore}</div>
                 </div>
             </div>
 
@@ -139,11 +142,4 @@ class Game extends React.Component {
     }
 }
 
-function shuffle(a) {
-    for (let i = a.length; i; i--) {
-        let j = Math.floor(Math.random() * i);
-        [a[i - 1], a[j]] = [a[j], a[i - 1]];
-    }
-}
-
-export default Game;
+export default Game

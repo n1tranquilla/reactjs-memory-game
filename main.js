@@ -1,5 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App.jsx';
+import React from 'react'
+import { render } from 'react-dom'
+import { Router, Route, hashHistory } from 'react-router'
 
-ReactDOM.render(<App />, document.getElementById('app'));
+import App from './src/App.jsx';
+import Game from './src/Game.jsx';
+import Instructions from './src/Instructions.jsx';
+
+render((
+    <Router history={hashHistory}>
+        <Route path="/" component={App}/>
+        <Route path="/game" component={Game}/>
+        <Route path="/instructions" component={Instructions}/>
+    </Router>
+), document.getElementById('app'))
+
+
+
